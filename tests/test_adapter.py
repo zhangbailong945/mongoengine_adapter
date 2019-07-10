@@ -1,5 +1,6 @@
 from casbin_mongoengine_adapter import Adapter
 from casbin_mongoengine_adapter import CasbinRule
+import unittest
 from unittest import TestCase
 import casbin
 import os
