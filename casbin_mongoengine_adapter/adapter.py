@@ -2,10 +2,13 @@ import casbin
 from casbin import persist
 from mongoengine import Document
 from mongoengine import connect
-from mongoengine.fields import IntField, StringField, UUIDField
+from mongoengine.fields import IntField, StringField
 
 
 class CasbinRule(Document):
+    '''
+    CasbinRule model
+    '''
 
     __tablename__ = "casbin_rule"
 
@@ -20,7 +23,6 @@ class CasbinRule(Document):
 
     def __str__(self):
         text = self.ptype
-
         if self.v0:
             text = text+', '+self.v0
         if self.v1:
@@ -45,13 +47,13 @@ class CasbinRule(Document):
 class Adapter(persist.Adapter):
     """the interface for Casbin adapters."""
 
-    def __init__(self,host):
+    def __init__(self,dbname,host):
         connect(db=dbname,host=host)
 
     def load_policy(self, model):
         '''
-        实现casbin接口\n
-        从mongodb中加载所有策略规则\n
+        implementing add Interface for casbin \n
+        load all policy rules from mongodb \n
         '''
         lines = CasbinRule.objects()
         for line in lines:
@@ -75,8 +77,8 @@ class Adapter(persist.Adapter):
 
     def save_policy(self, model):
         '''
-        实现casbin 接口\n
-        将策略保存到mongodb中\n
+        implementing add Interface for casbin \n
+        save the policy in mongodb \n
         '''
         for sec in ["p", "g"]:
             if sec not in model.model.keys():
@@ -87,16 +89,16 @@ class Adapter(persist.Adapter):
         return True
 
     def add_policy(self, sec, ptype, rule):
-        """向mongodb中添加策略规则"""
+        """add policy rules to mongodb"""
         self._save_policy_line(ptype, rule)
 
     def remove_policy(self, sec, ptype, rule):
-        """从mongodb中删除策略规则"""
+        """delete policy rules from mongodb"""
         pass
 
     def remove_filtered_policy(self, sec, ptype, field_index, *field_values):
         """
-        从mongodb中删除匹配筛选器的策略规则
+        delete policy rules for matching filters from mongodb
         """
         pass
 
