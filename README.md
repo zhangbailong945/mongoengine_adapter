@@ -1,14 +1,6 @@
 mongoengine Adapter for PyCasbin 
 ====
 
-[![Build Status](https://www.travis-ci.org/pycasbin/mongoengine-adapter.svg?branch=master)](https://www.travis-ci.org/pycasbin/mongoengine-adapter)
-[![Coverage Status](https://coveralls.io/repos/github/pycasbin/mongoengine-adapter/badge.svg)](https://coveralls.io/github/pycasbin/mongoengine-adapter)
-[![Version](https://img.shields.io/pypi/v/casbin_mongoengine_adapter.svg)](https://pypi.org/project/casbin_mongoengine_adapter/)
-[![PyPI - Wheel](https://img.shields.io/pypi/wheel/casbin_mongoengine_adapter.svg)](https://pypi.org/project/casbin_mongoengine_adapter/)
-[![Pyversions](https://img.shields.io/pypi/pyversions/casbin_mongoengine_adapter.svg)](https://pypi.org/project/casbin_mongoengine_adapter/)
-[![Download](https://img.shields.io/pypi/dm/casbin_mongoengine_adapter.svg)](https://pypi.org/project/casbin_mongoengine_adapter/)
-[![License](https://img.shields.io/pypi/l/casbin_mongoengine_adapter.svg)](https://pypi.org/project/casbin_mongoengine_adapter/)
-
 mongoengine Adapter is the [mongoengine](https://github.com/MongoEngine/mongoengine) adapter for [PyCasbin](https://github.com/zhangbailong945/mongodb_adapter). With this library, Casbin can load policy from mongoengine supported database or save policy to it.
 
 Based on [Officially Supported Databases](https://github.com/MongoEngine/mongoengine), The current supported databases are:
@@ -28,7 +20,7 @@ pip install casbin_mongoengine_adapter
 import casbin_mongoengine_adapter
 import casbin
 
-adapter = casbin_mongoengine_adapter.Adapter('sqlite:///test.db')
+adapter = Adapter(dbname='casbin_test', host='mongodb://localhost:27017')
 
 e = casbin.Enforcer('path/to/model.conf', adapter, True)
 
